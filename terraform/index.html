@@ -1,0 +1,1024 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.0">
+    
+    
+      
+        <title>Terraform - Terraform Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.9f615399.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.649f08f9.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="light-blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#solving-infrastructure-challenges-with-terraform" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Terraform Documentation" class="md-header__button md-logo" aria-label="Terraform Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Terraform Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Terraform
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Terraform Documentation" class="md-nav__button md-logo" aria-label="Terraform Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Terraform Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Terraform
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Terraform
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-terraform" class="md-nav__link">
+    What is Terraform
+  </a>
+  
+    <nav class="md-nav" aria-label="What is Terraform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-as-code-iac" class="md-nav__link">
+    Infrastructure as Code (IaC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-terraform" class="md-nav__link">
+    When to Use Terraform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-workflow" class="md-nav__link">
+    Typical Workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-graph" class="md-nav__link">
+    Resource Graph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automation-workflows" class="md-nav__link">
+    Automation Workflows
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform-configuration" class="md-nav__link">
+    Terraform Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Terraform Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hashicorp-configuration-language-hcl" class="md-nav__link">
+    HashiCorp Configuration Language (HCL)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcl-syntax" class="md-nav__link">
+    HCL Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation-conditions" class="md-nav__link">
+    Interpolation Conditions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-variables" class="md-nav__link">
+    Assigning Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-precendence" class="md-nav__link">
+    Variable Precendence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file-discovery" class="md-nav__link">
+    Configuration File Discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider" class="md-nav__link">
+    Provider
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-providers" class="md-nav__link">
+    Custom Providers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-versioning" class="md-nav__link">
+    Provider Versioning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-aliases" class="md-nav__link">
+    Provider Aliases
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    Resources
+  </a>
+  
+    <nav class="md-nav" aria-label="Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta-parameters" class="md-nav__link">
+    Meta-Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioners" class="md-nav__link">
+    Provisioners
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle" class="md-nav__link">
+    Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+    <nav class="md-nav" aria-label="State">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backends" class="md-nav__link">
+    Backends
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-terraform" class="md-nav__link">
+    What is Terraform
+  </a>
+  
+    <nav class="md-nav" aria-label="What is Terraform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-as-code-iac" class="md-nav__link">
+    Infrastructure as Code (IaC)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-terraform" class="md-nav__link">
+    When to Use Terraform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-workflow" class="md-nav__link">
+    Typical Workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-graph" class="md-nav__link">
+    Resource Graph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automation-workflows" class="md-nav__link">
+    Automation Workflows
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform-configuration" class="md-nav__link">
+    Terraform Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Terraform Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hashicorp-configuration-language-hcl" class="md-nav__link">
+    HashiCorp Configuration Language (HCL)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcl-syntax" class="md-nav__link">
+    HCL Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpolation-conditions" class="md-nav__link">
+    Interpolation Conditions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-variables" class="md-nav__link">
+    Assigning Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-precendence" class="md-nav__link">
+    Variable Precendence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file-discovery" class="md-nav__link">
+    Configuration File Discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider" class="md-nav__link">
+    Provider
+  </a>
+  
+    <nav class="md-nav" aria-label="Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-providers" class="md-nav__link">
+    Custom Providers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-versioning" class="md-nav__link">
+    Provider Versioning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-aliases" class="md-nav__link">
+    Provider Aliases
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    Resources
+  </a>
+  
+    <nav class="md-nav" aria-label="Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta-parameters" class="md-nav__link">
+    Meta-Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioners" class="md-nav__link">
+    Provisioners
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle" class="md-nav__link">
+    Lifecycle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+    <nav class="md-nav" aria-label="State">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backends" class="md-nav__link">
+    Backends
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="solving-infrastructure-challenges-with-terraform">Solving Infrastructure Challenges with Terraform</h1>
+<h2 id="what-is-terraform">What is Terraform</h2>
+<p>A tool for building, changing and versioning infrastructure safely and efficiently.</p>
+<h4 id="infrastructure-as-code-iac">Infrastructure as Code (IaC)</h4>
+<ul>
+<li>Reproducible Environments</li>
+<li>Idempotence and Convergence -Only the code that is meant to take the infrastructure to the desired state is executed. No other code is executed.</li>
+<li>Easing Collaboration - Key members can get specific version of the code and edit the infrastructure according to their preference</li>
+<li>Self Service Infrastructure - Developers and Operations members alike, can create and customize infrastructure according to their needs</li>
+</ul>
+<p><strong>IaC Option for AWS:</strong> Amazon CloudFormation</p>
+<h4 id="when-to-use-terraform">When to Use Terraform</h4>
+<ul>
+<li>Disposable Environments</li>
+<li>Multi-Cloud Deployment</li>
+<li>Multi-Tier Applications</li>
+<li>Resource Schedulers</li>
+</ul>
+<h4 id="typical-workflow">Typical Workflow</h4>
+<ul>
+<li>Write/Modify Configuration Files - Declare the desired state of your infrastructure</li>
+<li>Create and execution plan using the <code>plan</code> command. The configuration plan describes how to bring the current infrastructure to the desired state. Terraform will take the fewest possible steps to get to your desired configuration. It also decideds in which order the dependencies must be installed. A good plan can save you time and resources and it is far inexpensive than applying changes. But plan generation can be a time consuming process. If you want to work around this then you can suggest Terraform to work on a subset of the infrastructure or tell Terraform to use previous state information to generate a plan.</li>
+<li>Review the plan. At this step if you don't like what you see in the plan, you can go back and modify your configuration.</li>
+<li>Apply the changes using <code>apply</code> command. If you don't provide a plan, then apply will generate one for you and apply it. If anything goes wrong then Terraform won't just roll back to the previous state. This is because apply adheres to the plan, as there was no resource deletion in the plan, that's why terraform won't do it. If you version control your infrastructure code, you can just use a previous configuration to roll back.</li>
+</ul>
+<h4 id="resource-graph">Resource Graph</h4>
+<ul>
+<li>As previously mentioned, Terraform captures the dependency information in your infrastructure. The dependencies are naturally described by your configuration and you do not have to mark what depends on what, Terraform will understand it for you. </li>
+<li>If there are no dependencies, Terraform will enable parallel changes and create the infrastructure as effeciently as possible</li>
+<li>The resource graph of terraform can be visualized</li>
+</ul>
+<h4 id="automation-workflows">Automation Workflows</h4>
+<p>The typical workflow described before is a manual workflow but terraform supports automation. You may integrate terraform with a CI/CD pipeline that would automatically create infrastructure with each push and deploy to branches. If you turn on auto-accept, it can automatically apply new plans and update the infrastructure without any human intervention. But this might not be the best practice, so you are well off with a manual acceptance. You can also go for a Plan only setting. </p>
+<h2 id="terraform-configuration">Terraform Configuration</h2>
+<h4 id="hashicorp-configuration-language-hcl">HashiCorp Configuration Language (HCL)</h4>
+<p>A structured configuration language that is both human and machine friendly for use with command-line tools, but specifically targeted towards DevOps tools, servers, etc. JSON is also supported by Terraform and it is mainly aimed at automation configuration generation that won't be seen by humans.</p>
+<p><strong>Reosources</strong></p>
+<p>Components of your Infrastructure - Virutal Machines, Databases or Version Control Systems</p>
+<pre><code>resource &quot;google_compute_disk&quot; &quot;default&quot; {
+    name = &quot;example-disk&quot;
+    zone = &quot;us-central1-a&quot;
+}
+# the resources is a google_compute_disk, which the config identifies as default. And its properties are in the curly braces. 
+</code></pre>
+<p><strong>Providers</strong></p>
+<p>Resources are made available through providers. The providers are infrastructure integrations. The configurations for providers usually includes some form of credentials to grant you access to the provider's API.</p>
+<pre><code>provider 'google' {
+    credentials = &quot;${file(&quot;account.json&quot;)}&quot;
+    project     = &quot;gcp-project-id&quot;
+    region      = &quot;us-central1&quot;
+}
+</code></pre>
+<p><strong>Variables</strong></p>
+<p>Input variables to use in your configuration</p>
+<pre><code>variable &quot;environment_tag&quot;{
+    type = &quot;string&quot;
+    default = &quot;staging&quot;
+    description = &quot;Value of the infrastructure environment tag&quot;
+}
+</code></pre>
+<p><strong>Outputs</strong></p>
+<p>Outputs are infrastructure values that you want to easily access. You can think of them as highlighted infrastructure value. </p>
+<pre><code>output &quot;cluster_endpoint&quot; {
+    value = &quot;${google_container_cluster.cluster.endpoint}&quot;
+}
+</code></pre>
+<p>You can easily access any output using the terraform <code>output</code> command.</p>
+<p><strong>Data Sources</strong></p>
+<p>Data sources fetch information outside of the current configuration. For example, if you have divided your infrastructure into seperate projects, you can source your data from outside your project. It is not necessary for the data to be managed by Terraform. For example - </p>
+<pre><code>data &quot;google_compute_address&quot; &quot;static_address&quot; {
+    name = &quot;example-address&quot;
+}
+</code></pre>
+<p>In this example, the provider of this data is a google compute instance, which might be running an application that your configuration needs. </p>
+<h4 id="hcl-syntax">HCL Syntax</h4>
+<p><strong>Commenting</strong></p>
+<pre><code class="language-hcl">/*
+    Multi line commenting
+*/
+
+# Single line commenting
+</code></pre>
+<p><strong>Interpolation Syntax</strong></p>
+<pre><code>${var.name}
+${var.name[&quot;key&quot;]}
+${var.name[index]}
+
+# Resource Attributes
+${resourceType.resourceName.attribute}
+
+# Data Sources
+${data.type.name.attribute}
+</code></pre>
+<h4 id="interpolation-conditions">Interpolation Conditions</h4>
+<p>You can use if-else to make branching decisions in configuration. The syntax for this is -</p>
+<pre><code class="language-terraform">${condition ? true_expression : false_expression}
+</code></pre>
+<p>Condition must evaluate to <code>true</code> or <code>false</code>. </p>
+<ul>
+<li>You can also use equality operators <code>==</code> and <code>!=</code></li>
+<li>You can use numerical comparisons as well <code>&lt;, &gt;, &gt;= and &lt;=</code></li>
+<li>Logical Operators <code>&amp;&amp;, || and !</code></li>
+</ul>
+<p><code>true</code> and <code>false</code> expressions can be any valid interpolation. Both must return the same type.</p>
+<p>Interpolation supports basic mathematical operations on numbers. +, -, *, / and % (modulo or remainder for integers only).</p>
+<p>Built-in functions greatly extend interpolation. Syntax: <code>name(arg_1, arg_2,..)</code></p>
+<p><strong>Example Functions</strong></p>
+<pre><code class="language-hcl">abs(num)
+index(list, elem)
+file(path)
+replace(string, search, replace)
+</code></pre>
+<h4 id="assigning-variables">Assigning Variables</h4>
+<p><strong>Default</strong></p>
+<p>The most basic way to assign variables in assigning the <code>default</code> value. If no value is mentioned explicitly then the <code>default</code> value will be used.</p>
+<ul>
+<li>Used to infer type</li>
+<li>No interpolation allowed</li>
+</ul>
+<pre><code>variable &quot;image&quot; {
+    default = &quot;debian-cloud/debian-8&quot;
+}
+</code></pre>
+<p><strong>Interactive</strong></p>
+<ul>
+<li>Repetitive</li>
+<li>Not automation friendly</li>
+</ul>
+<p><strong>-var options</strong></p>
+<ul>
+<li>Few variables</li>
+<li>May not be version controlled</li>
+</ul>
+<pre><code>-var 'env=staging&quot;
+</code></pre>
+<p><strong>Variable Files</strong></p>
+<ul>
+<li>Use HCL syntax</li>
+<li><code>terraform.tfvars</code> and <code>*auto.tfvars</code> in the same directory are included automatically</li>
+</ul>
+<p>It is written in the configuration file like this - <code>-var-file = ../vars.auto.tfvars</code></p>
+<p>Here is an example tfvars file - </p>
+<pre><code>env = &quot;staging&quot;
+
+list = [&quot;tagA&quot;, &quot;tagB&quot;]
+
+map = {
+    key = &quot;value
+}
+</code></pre>
+<p><strong>Environment Variables</strong></p>
+<p>It must begin with <code>TF_VAR_</code>. In this example, you can see and environment variable named staging - <code>TF_VAR_env=staging</code></p>
+<h4 id="variable-precendence">Variable Precendence</h4>
+<p>From highest to lowest precedence - </p>
+<ul>
+<li>-var-file and -var</li>
+<li>Automatic variable files</li>
+<li>Environment variables</li>
+<li>defaults</li>
+</ul>
+<p>Point to be noted that, map does not adhere to this variable precendence rule.</p>
+<p>The variables that are defined in the same precendence, the last defined variable value will be used.</p>
+<h4 id="configuration-file-discovery">Configuration File Discovery</h4>
+<p>When you run the apply command, Terraform will look for files that end with <code>.tf</code> or <code>.tf.json</code> is using JSON. Terraform can detect a mixture of HCL and JSON. Although all of the configuration can be written in a single file, a more common pattern is dividing the files like this - </p>
+<ul>
+<li>variables.tf</li>
+<li>outputs.tf</li>
+<li>main.tf</li>
+</ul>
+<h4 id="modules">Modules</h4>
+<ul>
+<li>Allow you to share and reuse configurations</li>
+<li>Shared accross many sources <ul>
+<li>File Systems</li>
+<li>GitHub</li>
+<li>Amazon S3</li>
+<li>Terraform Registries - it has the benefit of supporting the version specified in HCL<ul>
+<li>Public Registry - <a href="https://registry.terraform.io">https://registry.terraform.io</a></li>
+<li>Private</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>module &quot;module_name&quot; {
+    source = &quot;...&quot;
+}
+</code></pre>
+<h2 id="provider">Provider</h2>
+<p>It is the logical abstraction of an upstream API. The provider wraps the CRUD api calls needed to manage resources. You can download the necessary providers using the <code>init</code> command.</p>
+<h4 id="custom-providers">Custom Providers</h4>
+<p>If your need is not met with the public providers, or perhaps you need a custom provider that supports your on premise storage, you can write Custom Providers. Custom Providers are - </p>
+<ul>
+<li>Written in Go</li>
+<li>HashiCorp provides guides</li>
+</ul>
+<h4 id="provider-versioning">Provider Versioning</h4>
+<p>Terraform will choose the latest version of the provider by default if a specific version is not mentioned. But you can also provide the version for the provider in these ways - </p>
+<ul>
+<li><code>1.12.1</code> - specifying the version number</li>
+<li><code>&gt;=1.2, &lt;1.12</code> - this specifies that the version number should be greater than or equal to 1.2 but less than 1.12</li>
+<li><code>~&gt; 1.7</code> - This specifies that the version should be equal or greater than 1.7.0 but should be less than 2.0</li>
+</ul>
+<p>You can use the same version control for modules or terraform itself</p>
+<h4 id="provider-aliases">Provider Aliases</h4>
+<p>If you have multiple instances from a single provider, for example you want to have multiple settings from a single provider you need to identify each of them using <code>alias</code>. One <code>default</code> is allowed. The default isntance is automatically specified when an alias is not mentioned. </p>
+<p>To use a certain provider in a resource - </p>
+<pre><code>resource &quot;google_compute_disk&quot; &quot;default&quot; {
+    provider = &quot;google.west&quot;
+}
+</code></pre>
+<h2 id="resources">Resources</h2>
+<p>Simply put, it is a component of your infrastructure. It can be anything from a virtual machine, a database to a version control system. Each type of resource has their own attributes and arguments. </p>
+<h4 id="meta-parameters">Meta-Parameters</h4>
+<p>Meta-parameters are configuration keys available to all resources. Here are some examples - </p>
+<table>
+<thead>
+<tr>
+<th>Meta-Parameter</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>provider</code></td>
+<td><code>provider = "google.west"</code></td>
+</tr>
+<tr>
+<td><code>depends_on</code></td>
+<td><code>depends_on = ["google_compute_instance.server"]</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="provisioners">Provisioners</h4>
+<ul>
+<li>Resources can configure provisioners to run scripts when created or destroyed</li>
+<li>Resources can have zero or more provisioners</li>
+<li>The syntax for including provisioners is to have a provisioner block in the resources section - </li>
+</ul>
+<pre><code>provisioner &quot;name&quot; {
+    when = &quot;create | destroy&quot; 
+    /* indicating when the provisioner should run. 
+    create is the default
+    destroy maybe used to extract data or cleanup routines */
+    ...
+}
+</code></pre>
+<p>To ensure destroy time provisioner is executed, you should set the count of the resource to zero. If you instead deleted the resource the resource block, Terraform wouldn't have the configuration of the provisioner.</p>
+<p>Provisioner can also optionally specify <code>connection</code> block. Many provisioners require accessing remote resources and the connection block allows you how to connect either using SSH or WinRM. For example - </p>
+<pre><code>provisioner &quot;name&quot; {
+    ...
+    connection {
+        type     = &quot;ssh|winrm&quot;
+        user     = &quot;username&quot;
+        password = &quot;${var.password}&quot;
+    }
+}
+</code></pre>
+<h4 id="lifecycle">Lifecycle</h4>
+<p>All resources can specify a <code>lifecycle</code> block to customize their lifecycle behaviour. The lifecycle behaviour can specify up to three optional keys - </p>
+<ul>
+<li><code>create_before_destroy</code>  - It controls whether a new resource is created before replacing it with the old destroyed resource. The default is <code>false</code>.</li>
+<li><code>prevent_destroy</code> - will throw an error any time an attempt is made to destroy the resource if it is set to <code>true</code>. The default is <code>false</code>.</li>
+<li><code>ignore_changes</code> - tells terraform to ignore changes to specified resource attributes. You can have a list of attributes in here. </li>
+</ul>
+<h2 id="state">State</h2>
+<p>For terraform to work perfectly, it must keep track of the state of the resources that it manages. </p>
+<p>State maps real world resources to you configurations, keep track of metadata, and improves performance for large infrastructures. By default terraform will refresh its state before any operation. The state is used to generate plans. Terraform can persist data in several different backend such as cloud services like - AWS S3 and enhanced backends that appear to be running locally but running on a virtual machine.</p>
+<h4 id="backends">Backends</h4>
+<ul>
+<li>The default is <code>local</code>. This stores data on the local file system. </li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.a264c092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4e0fa4ba.min.js"></script>
+      
+    
+  </body>
+</html>
