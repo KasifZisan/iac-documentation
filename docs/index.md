@@ -22,21 +22,4 @@ IaC configuration management tools use different language specifications. You ca
 - **Declarative:** Declarative IaC allows a developer to describe resources and settings that make up the end state of a desired system. The IaC solution then creates this system from the infrastructure code. 
 - **Imperative:** Imperative IaC allows a developer to describe all the steps to set up the resources and get to the desired system and running state. The imperative approach becomes necessary in complex infrastructure deployments. This is especially true when the order of events is critical.
 
-**IaC Option for AWS:** Amazon CloudFormation
-
-#### When to Use Terraform
-
-- Disposable Environments
-- Multi-Cloud Deployment
-- Multi-Tier Applications
-- Resource Schedulers
-
-#### Typical Workflow
-
-- Write/Modify Configuration Files - Declare the desired state of your infrastructure
-- Create and execution plan using the ```plan``` command
-- Review the plan
-- Apply the changes using ```apply``` command
-
-#### Resource Graph
 

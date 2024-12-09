@@ -1,1 +1,12 @@
 site_name: Terraform Documentation
+nav:
+  - IAC: index.md
+  - Terraform: terraform.md
+
+theme:
+  name: material
+  nav_style: dark
+  palette:
+    scheme: slate
+    primary: indigo
+    accent: light blue
