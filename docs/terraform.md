@@ -1,5 +1,7 @@
 # Solving Infrastructure Challenges with Terraform
 
+You can browse various providers and modules from this link - [Terraform Registry](https://registry.terraform.io/)
+
 ## What is Terraform
 A tool for building, changing and versioning infrastructure safely and efficiently.
 
@@ -266,6 +268,38 @@ resource "google_compute_disk" "default" {
 }
 ```
 
+#### Configuring Providers in Terraform
+Terraform uses a plugin architecture to manage all of the resource providers that it supports. No providers are included when you first install Terraform. You declare which providers you need to use in a configuration file. 
+
+Terraform includes an initialization command that reads the providers in a configuration and downloads the appropriate provider plugin.
+
+```bash
+mkdir infra && cd infra
+```
+
+Create a Terraform configuration file delcaring the AWS Provider:
+```
+cat > main.tf <<EOF
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.48.0"
+    }
+  }  
+}
+provider "aws" {
+  region = "us-west-2" # Oregon
+}
+EOF
+```
+
+Initialize the working diretory by running the ```init``` command:
+```
+terraform init
+```
+In addition to downloading referenced providers, the init command downloads any referenced modules from the Terraform registry when modules are included in the configuration.
+
 ## Resources
 Simply put, it is a component of your infrastructure. It can be anything from a virtual machine, a database to a version control system. Each type of resource has their own attributes and arguments. 
 
@@ -314,11 +348,50 @@ All resources can specify a ```lifecycle``` block to customize their lifecycle b
 - ```prevent_destroy``` - will throw an error any time an attempt is made to destroy the resource if it is set to ```true```. The default is ```false```.
 - ```ignore_changes``` - tells terraform to ignore changes to specified resource attributes. You can have a list of attributes in here. 
 
+#### VPC Resource Demo 
+``` bash
+resource "aws_vpc" "web_vpc" {
+  cidr_block = "192.168.100.0/24" # required argument
+  enable_dns_hostnames = true
+  tags = {
+    Name = "Web VPC"
+  }
+}
+```
+#### Subent Resource Demo
+```bash
+resource "aws_subnet" "web_subnet_1" {
+  vpc_id            = "${aws_vpc.web_vpc.id}"
+  cidr_block        = "192.168.100.0/25"
+  availability_zone = "us-west-2a"
+  tags = {
+    Name = "Web Subnet 1"
+  }
+}
+```
+#### AWS EC2 instance Demo
+```bash
+resource "aws_instance" "web" {
+  ami           = "ami-0fb83677"
+  instance_type = "t2.micro"
+  subnet_id     = "${aws_subnet.web_subnet_1.id}"
+  
+  tags = {
+    Name = "Web Server 1"
+  }
+}
+```
+Issue the ```apply``` command to have Terraform generate a plan that you can review before actually applying: ```terraform apply```
+
+
 ## State
 For terraform to work perfectly, it must keep track of the state of the resources that it manages. 
 
 State maps real world resources to you configurations, keep track of metadata, and improves performance for large infrastructures. By default terraform will refresh its state before any operation. The state is used to generate plans. Terraform can persist data in several different backend such as cloud services like - AWS S3 and enhanced backends that appear to be running locally but running on a virtual machine.
 
+If your terraform directory has a ```terraform.tfstate``` file then you use the command ```terraform show``` to show the attributes of the state file.
+
+Show the available state subcommands for working directly with the state: ```terraform state```
 #### Backends
 - The default is ```local```. This stores data on the local file system. The local backend stores state in Terraform's working directory in ```terraform.tfstate```. This can be configured by adding a ```terraform``` block -
 ```
@@ -336,3 +409,11 @@ Workspaces are like containers for state. You can use workspaces to manage infra
 Workspace are managed using the ```workspace``` command. You can create new workspaces using the ```new``` subcommand and select spaces using the ```select``` subcommand. If you select new workspace then there is no state until you apply the configuration. 
 
 The current workspace can be interpolated using - ```${terraform.workspace}```
+
+## Terraform Install on Ubuntu
+
+```bash 
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform
+```
