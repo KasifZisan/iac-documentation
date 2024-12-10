@@ -399,6 +399,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configuring-providers-in-terraform" class="md-nav__link">
+    Configuring Providers in Terraform
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -433,6 +440,27 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#vpc-resource-demo" class="md-nav__link">
+    VPC Resource Demo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subent-resource-demo" class="md-nav__link">
+    Subent Resource Demo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-ec2-instance-demo" class="md-nav__link">
+    AWS EC2 instance Demo
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -462,6 +490,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform-install-on-ubuntu" class="md-nav__link">
+    Terraform Install on Ubuntu
+  </a>
   
 </li>
       
@@ -638,6 +673,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configuring-providers-in-terraform" class="md-nav__link">
+    Configuring Providers in Terraform
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -668,6 +710,27 @@
           <li class="md-nav__item">
   <a href="#lifecycle" class="md-nav__link">
     Lifecycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vpc-resource-demo" class="md-nav__link">
+    VPC Resource Demo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subent-resource-demo" class="md-nav__link">
+    Subent Resource Demo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-ec2-instance-demo" class="md-nav__link">
+    AWS EC2 instance Demo
   </a>
   
 </li>
@@ -704,6 +767,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#terraform-install-on-ubuntu" class="md-nav__link">
+    Terraform Install on Ubuntu
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -720,6 +790,7 @@
 
 
 <h1 id="solving-infrastructure-challenges-with-terraform">Solving Infrastructure Challenges with Terraform</h1>
+<p>You can browse various providers and modules from this link - <a href="https://registry.terraform.io/">Terraform Registry</a></p>
 <h2 id="what-is-terraform">What is Terraform</h2>
 <p>A tool for building, changing and versioning infrastructure safely and efficiently.</p>
 <h4 id="infrastructure-as-code-iac">Infrastructure as Code (IaC)</h4>
@@ -930,6 +1001,30 @@ map = {
     provider = &quot;google.west&quot;
 }
 </code></pre>
+<h4 id="configuring-providers-in-terraform">Configuring Providers in Terraform</h4>
+<p>Terraform uses a plugin architecture to manage all of the resource providers that it supports. No providers are included when you first install Terraform. You declare which providers you need to use in a configuration file. </p>
+<p>Terraform includes an initialization command that reads the providers in a configuration and downloads the appropriate provider plugin.</p>
+<pre><code class="language-bash">mkdir infra &amp;&amp; cd infra
+</code></pre>
+<p>Create a Terraform configuration file delcaring the AWS Provider:</p>
+<pre><code>cat &gt; main.tf &lt;&lt;EOF
+terraform {
+  required_providers {
+    aws = {
+      source  = &quot;hashicorp/aws&quot;
+      version = &quot;3.48.0&quot;
+    }
+  }  
+}
+provider &quot;aws&quot; {
+  region = &quot;us-west-2&quot; # Oregon
+}
+EOF
+</code></pre>
+<p>Initialize the working diretory by running the <code>init</code> command:</p>
+<pre><code>terraform init
+</code></pre>
+<p>In addition to downloading referenced providers, the init command downloads any referenced modules from the Terraform registry when modules are included in the configuration.</p>
 <h2 id="resources">Resources</h2>
 <p>Simply put, it is a component of your infrastructure. It can be anything from a virtual machine, a database to a version control system. Each type of resource has their own attributes and arguments. </p>
 <h4 id="meta-parameters">Meta-Parameters</h4>
@@ -984,9 +1079,42 @@ map = {
 <li><code>prevent_destroy</code> - will throw an error any time an attempt is made to destroy the resource if it is set to <code>true</code>. The default is <code>false</code>.</li>
 <li><code>ignore_changes</code> - tells terraform to ignore changes to specified resource attributes. You can have a list of attributes in here. </li>
 </ul>
+<h4 id="vpc-resource-demo">VPC Resource Demo</h4>
+<pre><code class="language-bash">resource &quot;aws_vpc&quot; &quot;web_vpc&quot; {
+  cidr_block = &quot;192.168.100.0/24&quot; # required argument
+  enable_dns_hostnames = true
+  tags = {
+    Name = &quot;Web VPC&quot;
+  }
+}
+</code></pre>
+<h4 id="subent-resource-demo">Subent Resource Demo</h4>
+<pre><code class="language-bash">resource &quot;aws_subnet&quot; &quot;web_subnet_1&quot; {
+  vpc_id            = &quot;${aws_vpc.web_vpc.id}&quot;
+  cidr_block        = &quot;192.168.100.0/25&quot;
+  availability_zone = &quot;us-west-2a&quot;
+  tags = {
+    Name = &quot;Web Subnet 1&quot;
+  }
+}
+</code></pre>
+<h4 id="aws-ec2-instance-demo">AWS EC2 instance Demo</h4>
+<pre><code class="language-bash">resource &quot;aws_instance&quot; &quot;web&quot; {
+  ami           = &quot;ami-0fb83677&quot;
+  instance_type = &quot;t2.micro&quot;
+  subnet_id     = &quot;${aws_subnet.web_subnet_1.id}&quot;
+
+  tags = {
+    Name = &quot;Web Server 1&quot;
+  }
+}
+</code></pre>
+<p>Issue the <code>apply</code> command to have Terraform generate a plan that you can review before actually applying: <code>terraform apply</code></p>
 <h2 id="state">State</h2>
 <p>For terraform to work perfectly, it must keep track of the state of the resources that it manages. </p>
 <p>State maps real world resources to you configurations, keep track of metadata, and improves performance for large infrastructures. By default terraform will refresh its state before any operation. The state is used to generate plans. Terraform can persist data in several different backend such as cloud services like - AWS S3 and enhanced backends that appear to be running locally but running on a virtual machine.</p>
+<p>If your terraform directory has a <code>terraform.tfstate</code> file then you use the command <code>terraform show</code> to show the attributes of the state file.</p>
+<p>Show the available state subcommands for working directly with the state: <code>terraform state</code></p>
 <h4 id="backends">Backends</h4>
 <ul>
 <li>The default is <code>local</code>. This stores data on the local file system. The local backend stores state in Terraform's working directory in <code>terraform.tfstate</code>. This can be configured by adding a <code>terraform</code> block -</li>
@@ -1002,6 +1130,11 @@ map = {
 <p>Workspaces are like containers for state. You can use workspaces to manage infrastructures using the same configuration files. You may want to create a workspace for every branch in the version control system. </p>
 <p>Workspace are managed using the <code>workspace</code> command. You can create new workspaces using the <code>new</code> subcommand and select spaces using the <code>select</code> subcommand. If you select new workspace then there is no state until you apply the configuration. </p>
 <p>The current workspace can be interpolated using - <code>${terraform.workspace}</code></p>
+<h2 id="terraform-install-on-ubuntu">Terraform Install on Ubuntu</h2>
+<pre><code class="language-bash">wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main&quot; | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update &amp;&amp; sudo apt install terraform
+</code></pre>
 
 
 
