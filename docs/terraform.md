@@ -320,5 +320,19 @@ For terraform to work perfectly, it must keep track of the state of the resource
 State maps real world resources to you configurations, keep track of metadata, and improves performance for large infrastructures. By default terraform will refresh its state before any operation. The state is used to generate plans. Terraform can persist data in several different backend such as cloud services like - AWS S3 and enhanced backends that appear to be running locally but running on a virtual machine.
 
 #### Backends
+- The default is ```local```. This stores data on the local file system. The local backend stores state in Terraform's working directory in ```terraform.tfstate```. This can be configured by adding a ```terraform``` block -
+```
+terraform {
+    backend "local" {
+        path = "relative/path/terraform.tfstate"
+    }
+}
+```
+The contents are written JSON. There is also a Remote State option for teams. This is also more secure as the data can be encrypted at rest. Terraform only stores remote state on memory, not on disk. Requests for remote state is also done using TLS or Transport Layer Security. You can also access state using data source. Terraform also supports lock in of state, which will lock the state during operation.
 
-- The default is ```local```. This stores data on the local file system. 
+#### Workspaces
+Workspaces are like containers for state. You can use workspaces to manage infrastructures using the same configuration files. You may want to create a workspace for every branch in the version control system. 
+
+Workspace are managed using the ```workspace``` command. You can create new workspaces using the ```new``` subcommand and select spaces using the ```select``` subcommand. If you select new workspace then there is no state until you apply the configuration. 
+
+The current workspace can be interpolated using - ```${terraform.workspace}```
